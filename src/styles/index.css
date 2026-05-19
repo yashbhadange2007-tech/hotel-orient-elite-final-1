@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --color-page: #050403;
+    --color-surface: #0d0a07;
+    --color-text: #fffaf0;
+    --color-muted: rgba(255, 250, 240, 0.66);
+    --color-gold: #d8b758;
+    --layout-max: 90rem;
+    --nav-height: 4.5rem;
+    --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    min-width: 320px;
+    background: var(--color-page);
+    scroll-behavior: auto;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    background:
+      radial-gradient(circle at 50% -12%, rgba(216, 183, 88, 0.105), transparent 38rem),
+      radial-gradient(circle at 92% 42%, rgba(196, 108, 69, 0.055), transparent 32rem),
+      linear-gradient(180deg, #040302 0%, #0b0805 46%, #050403 100%);
+    color: var(--color-text);
+    font-family: "Manrope", "Inter", "Segoe UI", Arial, sans-serif;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    line-height: 1.6;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: rgba(216, 183, 88, 0.34);
+    color: #fffaf0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .page-shell {
+    position: relative;
+    min-height: 100vh;
+    overflow: clip;
+    background: var(--color-page);
+  }
+
+  .luxury-container {
+    width: min(100% - (2 * clamp(1rem, 4vw, 3rem)), var(--layout-max));
+    margin-inline: auto;
+  }
+
+  .section-frame {
+    position: relative;
+    isolation: isolate;
+    padding-block: clamp(5.75rem, 11vw, 10rem);
+  }
+
+  .section-frame::before,
+  .section-frame-lg::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset: 8% 0 auto;
+    z-index: -1;
+    height: 28rem;
+    background:
+      radial-gradient(circle at 78% 20%, rgba(216, 183, 88, 0.055), transparent 24rem),
+      radial-gradient(circle at 14% 64%, rgba(255, 250, 240, 0.025), transparent 18rem);
+  }
+
+  .section-frame-lg {
+    position: relative;
+    isolation: isolate;
+    padding-block: clamp(7rem, 15vw, 14rem);
+  }
+
+  .eyebrow {
+    color: rgb(216 183 88);
+    font-size: clamp(0.72rem, 1vw, 0.82rem);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    line-height: 1.45;
+    text-transform: uppercase;
+  }
+
+  .display-title {
+    max-width: 12ch;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(3.1rem, 10vw, 8.5rem);
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.01;
+    overflow: visible;
+    padding-block: 0.08em 0.12em;
+    text-wrap: balance;
+  }
+
+  .section-title {
+    max-width: 13ch;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(2.25rem, 5.2vw, 5.6rem);
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  .body-large {
+    max-width: 46rem;
+    color: rgba(255, 250, 240, 0.7);
+    font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+    line-height: 1.78;
+  }
+
+  .glass-panel {
+    border: 1px solid rgba(255, 250, 240, 0.1);
+    background:
+      linear-gradient(135deg, rgba(255, 250, 240, 0.07), rgba(216, 183, 88, 0.018)),
+      rgba(8, 6, 4, 0.62);
+    box-shadow: inset 0 1px 0 rgba(255, 250, 240, 0.08), 0 28px 80px rgba(0, 0, 0, 0.36);
+    backdrop-filter: blur(22px);
+  }
+
+  .luxury-card {
+    border: 1px solid rgba(255, 250, 240, 0.1);
+    background:
+      linear-gradient(145deg, rgba(255, 250, 240, 0.062), rgba(216, 183, 88, 0.018)),
+      rgba(9, 7, 5, 0.68);
+    box-shadow: inset 0 1px 0 rgba(255, 250, 240, 0.075), 0 30px 86px rgba(0, 0, 0, 0.38);
+    transition: border-color 360ms var(--ease-luxury), transform 360ms var(--ease-luxury), background 360ms var(--ease-luxury);
+  }
+
+  .luxury-card:hover {
+    border-color: rgba(216, 183, 88, 0.22);
+    background:
+      linear-gradient(145deg, rgba(255, 250, 240, 0.078), rgba(216, 183, 88, 0.028)),
+      rgba(10, 7, 5, 0.7);
+  }
+
+  .cinematic-media {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 250, 240, 0.1);
+    border-radius: 0.5rem;
+    background:
+      radial-gradient(circle at 58% 22%, rgba(216, 183, 88, 0.16), transparent 15rem),
+      linear-gradient(145deg, rgba(255, 250, 240, 0.068), rgba(5, 4, 3, 0.6));
+    box-shadow: inset 0 1px 0 rgba(255, 250, 240, 0.07), 0 36px 98px rgba(0, 0, 0, 0.42);
+  }
+
+  .cinematic-media::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, transparent 38%, rgba(5, 4, 3, 0.46)),
+      radial-gradient(circle at 50% 12%, rgba(255, 250, 240, 0.08), transparent 12rem);
+    pointer-events: none;
+  }
+
+  .gold-hairline {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, rgba(216, 183, 88, 0.7), transparent);
+  }
+
+  .atmospheric-vignette {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 8%, transparent 0 24%, rgba(5, 4, 3, 0.68) 72%),
+      linear-gradient(180deg, rgba(5, 4, 3, 0.24), rgba(5, 4, 3, 0.88));
+  }
+
+  .grain-overlay {
+    pointer-events: none;
+    position: fixed;
+    inset: -20%;
+    z-index: 50;
+    opacity: 0.032;
+    mix-blend-mode: screen;
+    background-image:
+      linear-gradient(115deg, rgba(255, 255, 255, 0.34), transparent 14%),
+      repeating-radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7) 0 1px, transparent 1px 3px);
+    animation: soft-grain 9s steps(8) infinite;
+  }
+
+  .gpu-layer {
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
+  }
+}
