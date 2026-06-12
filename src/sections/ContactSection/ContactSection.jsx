@@ -1,10 +1,12 @@
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from "../../animation/motionVariants";
 import SectionShell from "../../components/layout/SectionShell";
+import InstagramButton from "../../components/ui/InstagramButton";
 import LuxuryButton from "../../components/ui/LuxuryButton";
 import { siteConfig } from "../../config/site";
 
 const phoneHref = `tel:+91${siteConfig.phone.replace(/\D/g, "").replace(/^0/, "")}`;
+const hotelInstagramUrl = "https://www.instagram.com/hotelorientelite?igsh=MTAyY3RsMXZvZDVrZw==";
 const whatsappHref = "https://wa.me/917058757171?text=Hello%20Hotel%20Orient%20Elite%2C%20I%20would%20like%20help%20with%20location%20and%20directions.";
 const mapsQuery = encodeURIComponent(`${siteConfig.hotelName}, ${siteConfig.address}`);
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
@@ -83,8 +85,9 @@ export default function ContactSection() {
               className="inline-flex min-h-12 items-center justify-center rounded-md border border-ivory-50/12 bg-ivory-50/[0.035] px-6 text-sm font-bold text-ivory-50 transition duration-300 hover:border-gold-200/42 hover:bg-ivory-50/[0.065]"
               href={phoneHref}
             >
-              Call {siteConfig.phone}
+              Call <span className="phone-number phone-number-inline ml-1">{siteConfig.phone}</span>
             </a>
+            <InstagramButton href={hotelInstagramUrl} label="Hotel Instagram" />
           </div>
         </motion.div>
       </motion.div>

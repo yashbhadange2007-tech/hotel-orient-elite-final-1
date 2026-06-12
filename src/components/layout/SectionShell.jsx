@@ -20,10 +20,9 @@ export default function SectionShell({
       id={id}
       className={cx(sectionClass, "scroll-mt-24", className)}
       variants={staggerContainer}
-      initial={eagerReveal ? false : "hidden"}
-      animate={eagerReveal ? "visible" : undefined}
-      whileInView={eagerReveal ? undefined : "visible"}
-      viewport={viewportOnce}
+      initial={false}
+      animate="visible"
+      viewport={eagerReveal ? undefined : viewportOnce}
       data-section={id}
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-ivory-50/8 to-transparent" />

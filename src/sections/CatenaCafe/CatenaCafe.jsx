@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from "../../animation/motionVariants";
 import SectionShell from "../../components/layout/SectionShell";
+import InstagramButton from "../../components/ui/InstagramButton";
 import SectionContactCard from "../../components/ui/SectionContactCard";
 import catenaCafeImage from "../../assets/catena-cafe.png";
+
+const catenaInstagramUrl = "https://www.instagram.com/catenacoffeesolapur?igsh=MWN2cXB1aWV3Y2EzZg==";
 
 const cafeNotes = [
   ["Rooftop Social Lounge", "Warm lighting, city views, and relaxed seating for lingering conversations."],
@@ -51,14 +54,16 @@ export default function CatenaCafe() {
         </motion.figure>
 
         <motion.div className="grid gap-4" variants={staggerContainer}>
-          {cafeNotes.map(([title, text], index) => (
+          {cafeNotes.map(([title, text]) => (
             <motion.article key={title} className="luxury-card rounded-lg p-6 md:p-7" variants={fadeUp}>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-200/72">Catena 0{index + 1}</p>
-              <h3 className="mt-3 font-display text-3xl font-semibold leading-none text-ivory-50 sm:text-4xl">{title}</h3>
+              <h3 className="font-display text-3xl font-semibold leading-none text-ivory-50 sm:text-4xl">{title}</h3>
               <p className="mt-4 text-sm leading-7 text-ivory-100/66">{text}</p>
             </motion.article>
           ))}
           <SectionContactCard label="Catena Cafe" phone="+91 88570 37171" />
+          <motion.div variants={fadeUp}>
+            <InstagramButton href={catenaInstagramUrl} label="Catena Instagram" className="w-full sm:w-auto" />
+          </motion.div>
         </motion.div>
       </motion.div>
     </SectionShell>

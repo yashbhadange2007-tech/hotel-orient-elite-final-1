@@ -14,8 +14,8 @@ export default function CinematicImage({
     <motion.figure
       className={cx("gpu-layer overflow-hidden rounded-lg bg-ink-800", className)}
       variants={imageReveal}
-      initial="hidden"
-      whileInView="visible"
+      initial={false}
+      animate="visible"
       viewport={viewportOnce}
     >
       <img

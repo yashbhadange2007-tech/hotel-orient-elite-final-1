@@ -8,10 +8,10 @@ export const viewportOnce = {
 };
 
 export const pageTransition = {
-  initial: { opacity: 0 },
+  initial: { opacity: 1 },
   animate: {
     opacity: 1,
-    transition: { duration: 0.8, ease: cinematicEase },
+    transition: { duration: 0.01, ease: cinematicEase },
   },
   exit: {
     opacity: 0,
@@ -20,7 +20,7 @@ export const pageTransition = {
 };
 
 export const fadeIn = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: { duration: 0.9, ease: cinematicEase },
@@ -28,7 +28,7 @@ export const fadeIn = {
 };
 
 export const fadeUp = {
-  hidden: { opacity: 0, y: 42 },
+  hidden: { opacity: 1, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
@@ -37,7 +37,7 @@ export const fadeUp = {
 };
 
 export const slowReveal = {
-  hidden: { opacity: 0, y: 72, filter: "blur(10px)" },
+  hidden: { opacity: 1, y: 32, filter: "blur(0px)" },
   visible: {
     opacity: 1,
     y: 0,
@@ -58,9 +58,9 @@ export const staggerContainer = {
 
 export const imageReveal = {
   hidden: {
-    clipPath: "inset(18% 0% 18% 0%)",
-    scale: 1.08,
-    opacity: 0,
+    clipPath: "inset(0% 0% 0% 0%)",
+    scale: 1.02,
+    opacity: 1,
   },
   visible: {
     clipPath: "inset(0% 0% 0% 0%)",

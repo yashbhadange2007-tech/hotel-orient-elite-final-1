@@ -12,6 +12,8 @@
     --color-gold: #d8b758;
     --layout-max: 90rem;
     --nav-height: 4.5rem;
+    --section-space: clamp(4.25rem, 8vw, 7rem);
+    --section-space-lg: clamp(4.75rem, 9vw, 8rem);
     --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
@@ -96,7 +98,8 @@
   .section-frame {
     position: relative;
     isolation: isolate;
-    padding-block: clamp(5.75rem, 11vw, 10rem);
+    margin-block: 0;
+    padding-block: var(--section-space);
   }
 
   .section-frame::before,
@@ -115,7 +118,8 @@
   .section-frame-lg {
     position: relative;
     isolation: isolate;
-    padding-block: clamp(7rem, 15vw, 14rem);
+    margin-block: 0;
+    padding-block: var(--section-space-lg);
   }
 
   .eyebrow {
@@ -234,5 +238,34 @@
     backface-visibility: hidden;
     transform: translate3d(0, 0, 0);
     will-change: transform, opacity;
+  }
+
+  .phone-number {
+    font-family: "Manrope", "Inter", "Segoe UI", Arial, sans-serif;
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    font-weight: 600;
+    letter-spacing: 0.095em;
+    line-height: 1.05;
+    font-variant-numeric: tabular-nums;
+    text-wrap: nowrap;
+  }
+
+  .phone-number-inline {
+    font-size: 0.95em;
+    letter-spacing: 0.075em;
+  }
+
+  @media (max-width: 1023px) {
+    :root {
+      --section-space: clamp(3.75rem, 8vw, 5.75rem);
+      --section-space-lg: clamp(4rem, 9vw, 6.25rem);
+    }
+  }
+
+  @media (max-width: 639px) {
+    :root {
+      --section-space: clamp(3rem, 11vw, 4.25rem);
+      --section-space-lg: clamp(3.35rem, 12vw, 4.75rem);
+    }
   }
 }

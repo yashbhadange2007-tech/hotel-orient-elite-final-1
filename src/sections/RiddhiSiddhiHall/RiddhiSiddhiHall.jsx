@@ -7,6 +7,8 @@ import { cx } from "../../utils/classNames";
 import rsHallHeroShowcase from "../../assets/hall/rs-hall-hero-showcase.png";
 import rsHallStageCloseUp from "../../assets/hall/rs-hall-stage-close-up.png";
 import rsHallWideVenue from "../../assets/hall/rs-hall-wide-venue.png";
+import rsHallCatering from "../../assets/hall/rs-hall-catering.png";
+import rsHallBanquetRounds from "../../assets/hall/rs-hall-banquet-rounds.png";
 
 const hallImages = [
   {
@@ -29,6 +31,20 @@ const hallImages = [
     src: rsHallStageCloseUp,
     alt: "Close view of the Riddhi Siddhi Hall floral backdrop, sofa, and warm event lighting.",
     caption: "Refined stage detailing with warm hospitality lighting and a calm, celebratory atmosphere.",
+  },
+  {
+    title: "RS Hall Catering Presentation",
+    label: "Catering Detail",
+    src: rsHallCatering,
+    alt: "Riddhi Siddhi Hall catering counter with polished serveware and warm hospitality lighting.",
+    caption: "A refined catering presentation with polished service details for composed family celebrations.",
+  },
+  {
+    title: "RS Hall Banquet Seating",
+    label: "Banquet Setting",
+    src: rsHallBanquetRounds,
+    alt: "Riddhi Siddhi Hall banquet seating with round tables, warm ceiling light, and polished interiors.",
+    caption: "Warm banquet seating arranged with symmetry, intimacy, and a quietly elegant dining rhythm.",
   },
 ];
 
@@ -165,10 +181,15 @@ export default function RiddhiSiddhiHall() {
         </motion.div>
       </motion.div>
 
+      <motion.div className="mt-8 grid gap-5 sm:grid-cols-2 lg:mt-10 lg:gap-8" variants={staggerContainer}>
+        <HallImageCard image={hallImages[3]} index={3} className="[&>span:nth-child(3)]:aspect-[4/3]" onOpen={openLightbox} />
+        <HallImageCard image={hallImages[4]} index={4} className="[&>span:nth-child(3)]:aspect-[4/3]" onOpen={openLightbox} />
+      </motion.div>
+
       <AnimatePresence>
         {activeImage && (
           <motion.div
-            className="fixed inset-0 z-50 grid place-items-center bg-ink-950/92 p-3 backdrop-blur-xl sm:p-6"
+            className="fixed inset-0 z-[90] grid place-items-center bg-ink-950/92 p-3 backdrop-blur-xl sm:p-6"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

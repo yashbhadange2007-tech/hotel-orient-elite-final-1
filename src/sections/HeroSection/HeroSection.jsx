@@ -2,8 +2,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { fadeUp, hoverLift, staggerContainer } from "../../animation/motionVariants";
 import LuxuryContainer from "../../components/layout/LuxuryContainer";
+import InstagramButton from "../../components/ui/InstagramButton";
 import { siteConfig } from "../../config/site";
 import heroImage from "../../assets/orient-elite-hero.png";
+
+const hotelInstagramUrl = "https://www.instagram.com/hotelorientelite?igsh=MTAyY3RsMXZvZDVrZw==";
 
 export default function HeroSection() {
   const sectionRef = useRef(null);
@@ -47,23 +50,27 @@ export default function HeroSection() {
           <motion.div className="glass-panel mt-9 max-w-xl rounded-lg p-3 sm:flex sm:items-center sm:justify-between sm:gap-4" variants={fadeUp}>
             <div className="px-2 py-2">
               <p className="text-sm font-semibold text-ivory-50">Plan a composed Solapur stay</p>
-              <p className="mt-1 text-xs leading-5 text-ivory-100/62">Rated {siteConfig.rating} by {siteConfig.reviewCount} guests. Check-in from {siteConfig.checkIn}.</p>
+              <p className="mt-1 text-xs leading-5 text-ivory-100/62">
+                <span className="block">Rated {siteConfig.rating} by {siteConfig.reviewCount} guests.</span>
+                <span className="block">Check-in from {siteConfig.checkIn}.</span>
+              </p>
             </div>
             <div className="flex flex-wrap gap-3 pt-3 sm:pt-0">
               <motion.a
                 href="#booking"
-                className="rounded-md bg-gold-300 px-5 py-3 text-sm font-bold text-ink-950 shadow-glow transition-colors duration-300 hover:bg-gold-200"
+                className="inline-flex min-h-12 min-w-[10.75rem] items-center justify-center rounded-md bg-gold-300 px-5 py-3 text-sm font-bold text-ink-950 shadow-glow transition-colors duration-300 hover:bg-gold-200"
                 whileHover={hoverLift}
               >
                 Reserve Your Stay
               </motion.a>
               <motion.a
                 href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}
-                className="rounded-md border border-ivory-50/18 px-5 py-3 text-sm font-bold text-ivory-50 transition-colors duration-300 hover:border-gold-200/70 hover:text-gold-200"
+                className="inline-flex min-h-12 min-w-[10.75rem] items-center justify-center rounded-md border border-ivory-50/18 px-5 py-3 text-sm font-bold text-ivory-50 transition-colors duration-300 hover:border-gold-200/70 hover:text-gold-200"
                 whileHover={hoverLift}
               >
                 Call Now
               </motion.a>
+              <InstagramButton href={hotelInstagramUrl} label="Instagram" className="min-w-[10.75rem]" />
             </div>
           </motion.div>
         </motion.div>
@@ -75,19 +82,20 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35, duration: 1.15, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[radial-gradient(ellipse_at_center,rgba(216,183,88,0.24),transparent_60%)] blur-3xl" aria-hidden="true" />
-          <div className="absolute left-0 top-1/2 z-20 hidden h-3/4 w-1/2 -translate-y-1/2 bg-gradient-to-r from-ink-950/70 via-ink-950/28 to-transparent lg:block" aria-hidden="true" />
+          <div className="absolute inset-x-[8%] bottom-[4%] h-1/2 bg-[radial-gradient(ellipse_at_center,rgba(216,183,88,0.18),rgba(216,183,88,0.06)_38%,transparent_70%)] blur-3xl" aria-hidden="true" />
+          <div className="absolute inset-x-[4%] bottom-0 h-1/3 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.52),transparent_68%)] blur-2xl" aria-hidden="true" />
+          <div className="absolute left-0 top-1/2 z-20 hidden h-3/4 w-1/2 -translate-y-1/2 bg-gradient-to-r from-ink-950/64 via-ink-950/24 to-transparent lg:block" aria-hidden="true" />
           <motion.img
             src={heroImage}
             alt="Hotel Orient Elite illuminated exterior at dusk"
-            className="relative z-10 h-auto max-h-[50vh] w-full object-contain brightness-110 saturate-[1.02] contrast-105 drop-shadow-[0_40px_100px_rgba(0,0,0,0.62)] sm:max-h-[62vh] lg:max-h-[calc(100vh-6.5rem)]"
+            className="relative z-10 h-auto max-h-[50vh] w-full object-contain brightness-110 saturate-[1.02] contrast-[1.04] drop-shadow-[0_34px_92px_rgba(0,0,0,0.56)] sm:max-h-[62vh] lg:max-h-[calc(100vh-6.5rem)]"
             loading="eager"
             decoding="async"
             fetchPriority="high"
             animate={{ scale: [1, 1.018, 1] }}
             transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
           />
-          <div className="pointer-events-none absolute inset-0 z-20 bg-[linear-gradient(90deg,rgba(5,4,3,0.12),transparent_38%),linear-gradient(180deg,transparent_66%,rgba(5,4,3,0.3))]" aria-hidden="true" />
+          <div className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(ellipse_at_center,transparent_48%,rgba(5,4,3,0.2)_86%),linear-gradient(90deg,rgba(5,4,3,0.1),transparent_38%),linear-gradient(180deg,transparent_62%,rgba(5,4,3,0.36))]" aria-hidden="true" />
         </motion.figure>
       </LuxuryContainer>
     </section>

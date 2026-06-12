@@ -42,12 +42,10 @@ export default function BookingExperience() {
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length) return;
 
-    setStatus("loading");
-    window.setTimeout(() => {
-      const message = encodeURIComponent(`Hello Hotel Orient Elite, I would like to reserve a stay.\nName: ${form.name}\nMobile: ${form.phone}\nCheck-in: ${form.checkIn}\nCheck-out: ${form.checkOut}\nRoom type: ${form.roomType}\nGuests: ${form.guests}`);
-      window.open(`https://wa.me/917058757171?text=${message}`, "_blank", "noopener,noreferrer");
-      setStatus("sent");
-    }, 500);
+    const message = encodeURIComponent(`Hello Hotel Orient Elite, I would like to reserve a stay.\nName: ${form.name}\nMobile: ${form.phone}\nCheck-in: ${form.checkIn}\nCheck-out: ${form.checkOut}\nRoom type: ${form.roomType}\nGuests: ${form.guests}`);
+    const whatsappUrl = `https://wa.me/917058757171?text=${message}`;
+    setStatus("sent");
+    window.location.assign(whatsappUrl);
   };
 
   return (
@@ -61,7 +59,9 @@ export default function BookingExperience() {
     >
       <motion.div className="glass-panel mt-14 grid gap-8 rounded-lg p-5 md:grid-cols-[0.78fr_1.22fr] md:p-8 lg:mt-16" variants={staggerContainer}>
         <motion.div variants={fadeUp}>
-          <p className="font-display text-4xl font-bold text-ivory-50">Call {siteConfig.phone}</p>
+          <p className="font-display text-4xl font-bold text-ivory-50">
+            Call <span className="phone-number">{siteConfig.phone}</span>
+          </p>
           <p className="mt-5 text-sm leading-7 text-ivory-100/66">Check-in from {siteConfig.checkIn}. Submit your preferred room and dates through WhatsApp for a smooth confirmation conversation.</p>
           <div className="mt-8 grid gap-3 text-sm text-ivory-100/68">
             <p className="rounded-md border border-ivory-50/10 bg-ink-950/36 px-4 py-3">Stay-only reservations</p>

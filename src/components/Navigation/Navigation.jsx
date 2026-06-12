@@ -5,7 +5,7 @@ import { siteConfig } from "../../config/site";
 import { cx } from "../../utils/classNames";
 
 const navItems = [
-  ["Stay", "stay"],
+  ["Stay", "rooms"],
   ["Dining", "ojas"],
   ["Cafe", "catena"],
   ["Events", "hall"],

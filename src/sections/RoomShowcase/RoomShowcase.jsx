@@ -205,13 +205,13 @@ function RoomLightbox({ rooms, activeIndex, onClose, onMove }) {
                 key={room.id}
                 src={room.image}
                 alt={`${room.title} full room view`}
-                className="max-h-[76vh] w-full object-contain"
+                className="max-h-[52vh] w-full object-contain sm:max-h-[76vh]"
                 decoding="async"
               />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink-950/88 via-ink-950/18 to-transparent" />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-1/2 bg-gradient-to-t from-ink-950/88 via-ink-950/18 to-transparent sm:block" />
             </div>
 
-            <div className="absolute inset-x-0 bottom-0 z-10 p-5 sm:p-7">
+            <div className="relative z-10 border-t border-ivory-50/10 bg-ink-950 p-5 sm:absolute sm:inset-x-0 sm:bottom-0 sm:border-t-0 sm:bg-transparent sm:p-7">
               <p className="eyebrow">Room 0{activeIndex + 1}</p>
               <h3 className="mt-3 max-w-3xl font-display text-4xl font-semibold leading-none text-ivory-50 sm:text-5xl">
                 {room.title}

@@ -1,63 +1,74 @@
-import { motion } from "framer-motion";
-import { fadeUp, staggerContainer } from "../../animation/motionVariants";
+import { AnimatePresence, motion } from "framer-motion";
+import { useCallback, useEffect, useState } from "react";
+import { fadeUp, pressTap } from "../../animation/motionVariants";
 import SectionShell from "../../components/layout/SectionShell";
 
 const reviews = [
   {
     name: "Resham Kubal",
-    platform: "Google",
     rating: "5/5",
-    time: "3 months ago",
+    meta: "3 months ago on Google",
     review:
-      "“We booked this hotel as we had to visit Akkalkot, and our experience was excellent. The hotel in-charge was extremely helpful and guided us in booking a cab to Akkalkot. The staff was very polite, friendly, and cooperative.”",
+      "We booked this hotel as we had to visit Akkalkot, and our experience was excellent. The hotel in-charge was extremely helpful and guided us in booking a cab to Akkalkot. The staff was very polite, friendly, and cooperative.",
     response:
-      "“Thanks for the kind words — it's great to know the stay was smooth and enjoyable.”",
+      "Thanks for the kind words - it's great to know the stay was smooth and enjoyable.",
   },
   {
-    name: "Bhuvana Pillai",
-    platform: "Google",
+    name: "Shoumik Bhattacharya",
+    guide: "Local Guide - 20 reviews - 38 photos",
     rating: "5/5",
-    time: "4 months ago",
+    meta: "3 months ago on Google",
     review:
-      "“We were searching half an hour to find a Deluxe budget range hotel to stay in Solapur. As we are from Chennai we don't know how to find a decent one.”",
+      "I had a very pleasant experience here. Came here for work but the ambience the staff is amazing, very helpful people. Rooms are spacious and gives you a good feeling. Overall 10 on 10.",
     response:
-      "“Happy to hear you found a welcoming and practical place in Solapur. The family-friendly feel and good location are a plus.”",
-  },
-  {
-    name: "MugdhaPatil",
-    platform: "Tripadvisor",
-    rating: "5/5",
-    time: "3 years ago",
-    review: "“Great stay, clean rooms. We ordered room service and the food was good.”",
+      "Thanks for the kind words - it's great to know the staff and atmosphere made your visit comfortable.",
   },
   {
     name: "Ajay Rane",
-    platform: "Google",
     rating: "5/5",
-    time: "3 months ago",
+    meta: "3 months ago on Google",
     review:
-      "“Neat and clean hotel rooms. Mr Yogesh - Hotel Manager and other Staff are cooperative. Food quality is also good.”",
-    response: "“Appreciate the feedback on cleanliness and cooperation.”",
+      "Neat and clean hotel rooms. Mr Yogesh - Hotel Manager and other staff are cooperative. Food quality is also good. Location not far from railway station or bus stand.",
+    response:
+      "Appreciate the feedback on cleanliness and cooperation. Glad you found the stay reasonable and the place convenient.",
   },
   {
     name: "Dr. Pranesh Pawaskar",
-    platform: "Google",
     rating: "5/5",
-    time: "4 months ago",
+    meta: "4 months ago on Google",
     review:
-      "“Overall it was Very Nice experience of 6 of us first time in Solapur. Multiple options of rooms available, rooms are clean, services are proper.”",
+      "Overall it was very nice experience of 6 of us first time in Solapur. Multiple options of rooms available, rooms are clean, services are proper.",
     response:
-      "“Appreciate the positive feedback on the room options and clean, well-maintained spaces.”",
+      "Appreciate the positive feedback on the room options and clean, well-maintained spaces.",
   },
   {
     name: "Mayank Shekhar",
-    platform: "Google",
     rating: "5/5",
-    time: "4 months ago",
+    meta: "4 months ago on Google",
     review:
-      "“The hotel is well maintained. The staffs are very helpful and professional. It is budget friendly hotel and situated in the heart of the city.”",
+      "The hotel is well maintained. The staffs are very helpful and professional. It is budget friendly hotel and situated in the heart of the city. Rooms are clean and spacious.",
+    response:
+      "Thanks for the kind words - it's great to know the hotel and staff are meeting your expectations.",
   },
 ];
+
+const reviewVariants = {
+  enter: (direction) => ({
+    opacity: 0,
+    x: direction > 0 ? 64 : -64,
+    filter: "blur(8px)",
+  }),
+  center: {
+    opacity: 1,
+    x: 0,
+    filter: "blur(0px)",
+  },
+  exit: (direction) => ({
+    opacity: 0,
+    x: direction > 0 ? -64 : 64,
+    filter: "blur(8px)",
+  }),
+};
 
 function StarRating() {
   return (
@@ -71,87 +82,148 @@ function StarRating() {
   );
 }
 
-function PlatformMark({ platform }) {
-  const isTripadvisor = platform === "Tripadvisor";
-
+function ReviewCard({ review, index, direction, onDragEnd }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-md border border-ivory-50/10 bg-ink-950/52 px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-ivory-100/68">
-      <span className={isTripadvisor ? "text-emerald-300" : "text-gold-200"}>{isTripadvisor ? "TA" : "G"}</span>
-      {platform}
-    </span>
-  );
-}
+    <AnimatePresence mode="wait" custom={direction}>
+      <motion.article
+        key={review.name}
+        custom={direction}
+        variants={reviewVariants}
+        initial="enter"
+        animate="center"
+        exit="exit"
+        transition={{ duration: 0.58, ease: [0.16, 1, 0.3, 1] }}
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.16}
+        onDragEnd={onDragEnd}
+        className="luxury-card cursor-grab rounded-lg p-5 active:cursor-grabbing sm:p-7 lg:p-8"
+      >
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <p className="eyebrow">Google Review 0{index + 1}</p>
+            <h3 className="mt-3 font-display text-4xl font-semibold leading-none text-ivory-50 sm:text-5xl">
+              {review.name}
+            </h3>
+            {review.guide && (
+              <p className="mt-3 text-xs font-semibold uppercase tracking-[0.14em] text-ivory-100/48">
+                {review.guide}
+              </p>
+            )}
+          </div>
 
-function ReviewCard({ review, index }) {
-  return (
-    <motion.article
-      className="group relative overflow-hidden rounded-lg border border-ivory-50/10 bg-[linear-gradient(145deg,rgba(255,250,240,0.068),rgba(216,183,88,0.018)),rgba(9,7,5,0.72)] p-6 shadow-[0_28px_90px_rgba(0,0,0,0.38)] backdrop-blur-xl transition duration-500 hover:border-gold-200/26 sm:p-7"
-      variants={fadeUp}
-      whileHover={{ y: -6, scale: 1.008 }}
-      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <div className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full bg-gold-200/10 blur-3xl transition-opacity duration-700 group-hover:opacity-90" />
-      <div className="relative flex items-start justify-between gap-4">
-        <div>
-          <p className="font-display text-3xl font-semibold leading-none text-ivory-50">{review.name}</p>
-          <p className="mt-2 text-xs font-bold uppercase tracking-[0.14em] text-ivory-100/46">
-            {review.time} · {review.rating}
+          <div className="shrink-0 rounded-md border border-gold-200/24 bg-gold-200/10 px-4 py-3 text-left sm:text-right">
+            <p className="text-lg font-bold leading-none text-gold-200">{review.rating}</p>
+            <p className="mt-2 text-xs font-semibold uppercase tracking-[0.12em] text-ivory-100/56">
+              {review.meta}
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-6 flex items-center justify-between gap-4 border-y border-ivory-50/8 py-4">
+          <StarRating />
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-200/62">
+            Verified Stay
           </p>
         </div>
-        <PlatformMark platform={review.platform} />
-      </div>
 
-      <div className="relative mt-5 flex items-center justify-between gap-4 border-y border-ivory-50/8 py-4">
-        <StarRating />
-        <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-200/62">Review 0{index + 1}</p>
-      </div>
+        <p className="mt-6 text-base leading-8 text-ivory-100/76 sm:text-lg sm:leading-9">
+          "{review.review}"
+        </p>
 
-      <p className="relative mt-5 text-sm leading-7 text-ivory-100/74">{review.review}</p>
-
-      {review.response && (
-        <div className="relative mt-6 rounded-md border border-gold-200/16 bg-gold-200/[0.045] p-4">
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-200/72">Owner Response</p>
-          <p className="mt-3 text-sm leading-7 text-ivory-100/68">{review.response}</p>
+        <div className="mt-7 rounded-md border border-ivory-50/10 bg-ivory-50/[0.045] p-4 backdrop-blur-md sm:p-5">
+          <p className="text-xs font-bold uppercase tracking-[0.16em] text-gold-200/82">
+            Owner response
+          </p>
+          <p className="mt-3 text-sm leading-7 text-ivory-100/68">"{review.response}"</p>
         </div>
-      )}
-    </motion.article>
+      </motion.article>
+    </AnimatePresence>
   );
 }
 
 export default function TrustSection() {
+  const [[activeIndex, direction], setActiveReview] = useState([0, 1]);
+
+  const moveReview = useCallback((step) => {
+    setActiveReview(([current]) => [
+      (current + step + reviews.length) % reviews.length,
+      step,
+    ]);
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => moveReview(1), 7600);
+    return () => window.clearInterval(timer);
+  }, [moveReview]);
+
+  const handleDragEnd = (_event, info) => {
+    if (info.offset.x < -52) {
+      moveReview(1);
+    }
+    if (info.offset.x > 52) {
+      moveReview(-1);
+    }
+  };
+
+  const activeReview = reviews[activeIndex];
+
   return (
     <SectionShell
       id="trust"
       eyebrow="Guest Reviews"
       title="Guest trust, quietly earned."
-      description="Genuine notes from Google and Tripadvisor, presented with the same calm clarity guests remember from their stay."
-      className="overflow-hidden bg-[radial-gradient(circle_at_82%_18%,rgba(216,183,88,0.12),transparent_28rem),radial-gradient(circle_at_12%_78%,rgba(255,250,240,0.045),transparent_24rem)]"
+      description="Real Google reviews from guests who found clean rooms, helpful staff, and a composed stay in central Solapur."
+      className="overflow-visible bg-[radial-gradient(circle_at_82%_18%,rgba(216,183,88,0.075),transparent_24rem)]"
     >
-      <motion.div className="mt-14 grid gap-5 lg:mt-16 lg:grid-cols-[0.8fr_1.2fr]" variants={staggerContainer}>
-        <motion.aside className="glass-panel rounded-lg p-7 sm:p-8 lg:sticky lg:top-28 lg:self-start" variants={fadeUp}>
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-200/78">Verified sentiment</p>
-          <p className="mt-5 font-display text-6xl font-semibold leading-none text-gold-200">5/5</p>
-          <div className="mt-4">
-            <StarRating />
-          </div>
-          <p className="mt-6 text-sm leading-7 text-ivory-100/68">
-            Guests consistently mention clean rooms, cooperative staff, proper service, food quality, and a practical Solapur location.
-          </p>
-          <div className="gold-hairline my-7" />
-          <div className="grid gap-3">
-            {["Google reviews", "Tripadvisor stay note", "Owner responses included"].map((item) => (
-              <p key={item} className="rounded-md border border-ivory-50/10 bg-ivory-50/[0.035] px-4 py-3 text-sm font-semibold text-ivory-50/76">
-                {item}
-              </p>
+      <motion.div className="mt-12 grid gap-6 lg:mt-14 lg:grid-cols-[minmax(0,1fr)_auto]" variants={fadeUp}>
+        <div className="min-w-0 overflow-visible">
+          <ReviewCard
+            review={activeReview}
+            index={activeIndex}
+            direction={direction}
+            onDragEnd={handleDragEnd}
+          />
+        </div>
+
+        <div className="flex items-center justify-between gap-4 lg:w-24 lg:flex-col lg:justify-center">
+          <motion.button
+            type="button"
+            className="grid h-12 w-12 place-items-center rounded-md border border-gold-200/30 bg-ink-950/64 text-2xl leading-none text-gold-200 shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md transition-colors duration-300 hover:border-gold-200/58 hover:bg-gold-200/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-200"
+            whileTap={pressTap}
+            onClick={() => moveReview(-1)}
+            aria-label="Previous review"
+          >
+            &lt;
+          </motion.button>
+
+          <div className="flex gap-2 lg:flex-col">
+            {reviews.map((review, index) => (
+              <button
+                key={review.name}
+                type="button"
+                className={`h-2.5 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-200 ${
+                  index === activeIndex
+                    ? "w-8 bg-gold-200 lg:h-8 lg:w-2.5"
+                    : "w-2.5 bg-ivory-50/22 hover:bg-gold-200/55 lg:h-2.5"
+                }`}
+                onClick={() => setActiveReview([index, index > activeIndex ? 1 : -1])}
+                aria-label={`Show review from ${review.name}`}
+                aria-current={index === activeIndex}
+              />
             ))}
           </div>
-        </motion.aside>
 
-        <motion.div className="grid gap-4 md:grid-cols-2" variants={staggerContainer}>
-          {reviews.map((review, index) => (
-            <ReviewCard key={`${review.platform}-${review.name}`} review={review} index={index} />
-          ))}
-        </motion.div>
+          <motion.button
+            type="button"
+            className="grid h-12 w-12 place-items-center rounded-md border border-gold-200/30 bg-ink-950/64 text-2xl leading-none text-gold-200 shadow-[0_18px_42px_rgba(0,0,0,0.32)] backdrop-blur-md transition-colors duration-300 hover:border-gold-200/58 hover:bg-gold-200/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-200"
+            whileTap={pressTap}
+            onClick={() => moveReview(1)}
+            aria-label="Next review"
+          >
+            &gt;
+          </motion.button>
+        </div>
       </motion.div>
     </SectionShell>
   );

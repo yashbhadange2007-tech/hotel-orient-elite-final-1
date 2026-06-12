@@ -21,7 +21,7 @@ function PhoneIcon() {
   );
 }
 
-export default function SectionContactCard({ label, phone, className }) {
+export default function SectionContactCard({ label, phone, className, phoneClassName }) {
   const tel = phone.replace(/\s/g, "");
 
   return (
@@ -37,7 +37,10 @@ export default function SectionContactCard({ label, phone, className }) {
           <p className="text-xs font-bold uppercase tracking-[0.18em] text-gold-200/76">{label}</p>
           <a
             href={`tel:${tel}`}
-            className="mt-2 inline-flex items-center gap-2 font-display text-2xl font-semibold leading-none text-ivory-50 transition-colors duration-300 group-hover:text-gold-100"
+            className={cx(
+              "phone-number mt-2 inline-flex items-center gap-2 text-ivory-50 transition-colors duration-300 group-hover:text-gold-100",
+              phoneClassName,
+            )}
           >
             <PhoneIcon />
             {phone}
